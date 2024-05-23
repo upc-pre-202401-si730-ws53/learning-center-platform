@@ -10,7 +10,7 @@ public partial class Tutorial
     public Category Category { get; }
     public int CategoryId { get; private set; }
     
-    public Tutorial(string title, string summary, int categoryId)
+    public Tutorial(string title, string summary, int categoryId) : this()
     {
         Title = title;
         Summary = summary;
