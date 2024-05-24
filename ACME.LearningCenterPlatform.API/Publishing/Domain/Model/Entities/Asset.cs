@@ -4,7 +4,7 @@ namespace ACME.LearningCenterPlatform.API.Publishing.Domain.Model.Entities;
 
 public partial class Asset : IPublishable
 {
-    
+    public int Id { get; }
     public AcmeAssetIdentifier AssetIdentifier { get; private set; }
     public EPublishingStatus Status { get; protected set; }
     public EAssetType Type { get; private set; }
