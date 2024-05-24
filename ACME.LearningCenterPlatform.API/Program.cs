@@ -66,6 +66,15 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Verify Database Objects area Created
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    context.Database.EnsureCreated();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
