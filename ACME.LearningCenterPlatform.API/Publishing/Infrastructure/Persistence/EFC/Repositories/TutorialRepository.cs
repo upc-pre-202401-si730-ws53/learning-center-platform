@@ -8,10 +8,10 @@ namespace ACME.LearningCenterPlatform.API.Publishing.Infrastructure.Persistence.
 
 public class TutorialRepository(AppDbContext context) : BaseRepository<Tutorial>(context), ITutorialRepository
 {
-    public async Task<Tutorial?> FindByCategoryIdAsync(int categoryId) =>
+    public async Task<IEnumerable<Tutorial>> FindByCategoryIdAsync(int categoryId) =>
         await Context.Set<Tutorial>()
-            .Include(tutorial => tutorial.Category)
-            .FirstOrDefaultAsync(tutorial => tutorial.CategoryId == categoryId);
+            .Where(t => t.CategoryId == categoryId)
+            .ToListAsync();
 
     public new async Task<Tutorial?> FindByIdAsync(int id) => await Context.Set<Tutorial>()
         .Include(tutorial => tutorial.Category)

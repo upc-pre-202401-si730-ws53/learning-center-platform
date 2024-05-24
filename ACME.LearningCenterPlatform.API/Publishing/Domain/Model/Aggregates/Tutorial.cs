@@ -1,3 +1,4 @@
+using ACME.LearningCenterPlatform.API.Publishing.Domain.Model.Commands;
 using ACME.LearningCenterPlatform.API.Publishing.Domain.Model.Entities;
 
 namespace ACME.LearningCenterPlatform.API.Publishing.Domain.Model.Aggregates;
@@ -16,5 +17,8 @@ public partial class Tutorial
         Summary = summary;
         CategoryId = categoryId;
     }
+    
+    public Tutorial(CreateTutorialCommand command) 
+        : this(command.Title, command.Summary, command.CategoryId) { }
     
 }
