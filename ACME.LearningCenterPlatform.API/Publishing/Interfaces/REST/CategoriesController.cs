@@ -20,6 +20,7 @@ public class CategoriesController(
     {
         var getCategoryByIdQuery = new GetCategoryByIdQuery(categoryId);
         var category = await categoryQueryService.Handle(getCategoryByIdQuery);
+        if (category is null) return NotFound();
         var categoryResource = CategoryResourceFromEntityAssembler.ToResourceFromEntity(category);
         return Ok(categoryResource);
     }
@@ -29,6 +30,7 @@ public class CategoriesController(
     {
         var createCategoryCommand = CreateCategoryCommandFromResourceAssembler.ToCommandFromResource(resource);
         var category = await categoryCommandService.Handle(createCategoryCommand);
+        if (category is null) return BadRequest();
         var categoryResource = CategoryResourceFromEntityAssembler.ToResourceFromEntity(category);
         return CreatedAtAction(nameof(GetCategoryById), new { categoryId = category.Id }, categoryResource);
     }
