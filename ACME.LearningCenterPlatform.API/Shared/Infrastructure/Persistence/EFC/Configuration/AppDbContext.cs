@@ -1,3 +1,4 @@
+using ACME.LearningCenterPlatform.API.Profiles.Domain.Model.Aggregates;
 using ACME.LearningCenterPlatform.API.Publishing.Domain.Model.Aggregates;
 using ACME.LearningCenterPlatform.API.Publishing.Domain.Model.Entities;
 using ACME.LearningCenterPlatform.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
@@ -50,6 +51,43 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
 
         builder.Entity<Tutorial>().HasMany(t => t.Assets);
 
+        // Category Relationships
+        builder.Entity<Category>()
+            .HasMany(c => c.Tutorials)
+            .WithOne(t => t.Category)
+            .HasForeignKey(t => t.CategoryId)
+            .HasPrincipalKey(t => t.Id);
+        
+        // Profiles Context
+        
+        builder.Entity<Profile>().HasKey(p => p.Id);
+        builder.Entity<Profile>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Profile>().OwnsOne(p => p.Name,
+            n =>
+            {
+                n.WithOwner().HasForeignKey("Id");
+                n.Property(p => p.FirstName).HasColumnName("FirstName");
+                n.Property(p => p.LastName).HasColumnName("LastName");
+            });
+
+        builder.Entity<Profile>().OwnsOne(p => p.Email,
+            e =>
+            {
+                e.WithOwner().HasForeignKey("Id");
+                e.Property(a => a.Address).HasColumnName("EmailAddress");
+            });
+
+        builder.Entity<Profile>().OwnsOne(p => p.Address,
+            a =>
+            {
+                a.WithOwner().HasForeignKey("Id");
+                a.Property(s => s.Street).HasColumnName("AddressStreet");
+                a.Property(s => s.Number).HasColumnName("AddressNumber");
+                a.Property(s => s.City).HasColumnName("AddressCity");
+                a.Property(s => s.PostalCode).HasColumnName("AddressPostalCode");
+                a.Property(s => s.Country).HasColumnName("AddressCountry");
+            });
+        
         // Apply SnakeCase Naming Convention
         builder.UseSnakeCaseWithPluralizedTableNamingConvention();
     }
