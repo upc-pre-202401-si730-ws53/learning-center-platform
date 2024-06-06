@@ -31,4 +31,9 @@
         <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.6.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="IAM\Application\Internal\CommandServices\" />
+      <Folder Include="IAM\Application\Internal\QueryServices\" />
+    </ItemGroup>
+
 </Project>
