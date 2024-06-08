@@ -1,11 +1,13 @@
 using System.Net.Mime;
 using ACME.LearningCenterPlatform.API.IAM.Domain.Model.Queries;
 using ACME.LearningCenterPlatform.API.IAM.Domain.Services;
+using ACME.LearningCenterPlatform.API.IAM.Infrastructure.Pipeline.Middleware.Attributes;
 using ACME.LearningCenterPlatform.API.IAM.Interfaces.REST.Transform;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ACME.LearningCenterPlatform.API.IAM.Interfaces.REST;
 
+[Authorize]
 [ApiController]
 [Route("api/v1/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
