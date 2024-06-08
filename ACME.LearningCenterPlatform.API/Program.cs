@@ -8,6 +8,8 @@ using ACME.LearningCenterPlatform.API.IAM.Infrastructure.Persistence.EFC.Reposit
 using ACME.LearningCenterPlatform.API.IAM.Infrastructure.Pipeline.Middleware.Extensions;
 using ACME.LearningCenterPlatform.API.IAM.Infrastructure.Tokens.JWT.Configuration;
 using ACME.LearningCenterPlatform.API.IAM.Infrastructure.Tokens.JWT.Services;
+using ACME.LearningCenterPlatform.API.IAM.Interfaces.ACL;
+using ACME.LearningCenterPlatform.API.IAM.Interfaces.ACL.Services;
 using ACME.LearningCenterPlatform.API.Profiles.Application.Internal.CommandServices;
 using ACME.LearningCenterPlatform.API.Profiles.Application.Internal.QueryServices;
 using ACME.LearningCenterPlatform.API.Profiles.Domain.Repositories;
@@ -133,6 +135,7 @@ builder.Services.AddScoped<IUserCommandService, UserCommandService>();
 builder.Services.AddScoped<IUserQueryService, UserQueryService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IHashingService, HashingService>();
+builder.Services.AddScoped<IIamContextFacade, IamContextFacade>();
 
 var app = builder.Build();
 
