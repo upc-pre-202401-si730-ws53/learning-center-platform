@@ -25,8 +25,8 @@ public partial class Tutorial : IPublishable
         Assets = new List<Asset>();
         Status = EPublishingStatus.Draft;
     }
-    
-    public bool HasAllAssetsWithStatus(EPublishingStatus status) => Assets.All(a => a.Status == status);
+
+    private bool HasAllAssetsWithStatus(EPublishingStatus status) => Assets.All(a => a.Status == status);
 
     public void SendToEdit()
     {

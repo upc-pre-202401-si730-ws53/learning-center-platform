@@ -8,5 +8,5 @@ namespace ACME.LearningCenterPlatform.API.IAM.Infrastructure.Tokens.JWT.Configur
  */
 public class TokenSettings
 {
-    public string Secret { get; set; }
+    public string? Secret { get; set; }
 }

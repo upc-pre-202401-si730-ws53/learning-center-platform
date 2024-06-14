@@ -15,6 +15,7 @@ public class TokenService(IOptions<TokenSettings> tokenSettings) : ITokenService
     public string GenerateToken(User user)
     {
         var secret = _tokenSettings.Secret;
+        if (string.IsNullOrEmpty(secret)) throw new Exception("Secret is not set");
         var key = Encoding.ASCII.GetBytes(secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
@@ -37,7 +38,9 @@ public class TokenService(IOptions<TokenSettings> tokenSettings) : ITokenService
     {
         if (string.IsNullOrEmpty(token)) return null;
         var tokenHandler = new JsonWebTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_tokenSettings.Secret);
+        var secret = _tokenSettings.Secret;
+        if (string.IsNullOrEmpty(secret)) return 0;
+        var key = Encoding.ASCII.GetBytes(secret);
         try
         {
             var tokenValidationResult = await tokenHandler.ValidateTokenAsync(token, new TokenValidationParameters

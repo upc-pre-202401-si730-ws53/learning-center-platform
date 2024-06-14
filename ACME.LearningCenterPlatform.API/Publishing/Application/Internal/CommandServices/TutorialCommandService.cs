@@ -10,11 +10,13 @@ public class TutorialCommandService(ITutorialRepository tutorialRepository, ICat
 {
     public async Task<Tutorial?> Handle(CreateTutorialCommand command)
     {
-        var tutorial = new Tutorial(command);
-        var category = await categoryRepository.FindByIdAsync(command.CategoryId);
-        tutorial.Category = category;
+        
         try
         {
+            var tutorial = new Tutorial(command);
+            var category = await categoryRepository.FindByIdAsync(command.CategoryId);
+            if (category is null) throw new Exception("Category not found");
+            tutorial.Category = category;
             await tutorialRepository.AddAsync(tutorial);
             await unitOfWork.CompleteAsync();
             return tutorial;
